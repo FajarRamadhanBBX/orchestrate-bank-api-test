@@ -2,23 +2,24 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bank-ingress
+  namespace: development-bank-app
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    traefik.ingress.kubernetes.io/router.middlewares: development-bank-app-strip-api@kubernetescrd
+
 spec:
   rules:
-  - host: bank.local
-    http:
+  - http:
       paths:
-      - path: /(.*)
-        pathType: ImplementationSpecific
+      - path: /
+        pathType: Prefix
         backend:
           service:
             name: frontend-service
             port:
               number: 80
 
-      - path: /api(/|$)(.*)
-        pathType: ImplementationSpecific
+      - path: /api
+        pathType: Prefix
         backend:
           service:
             name: backend-service
