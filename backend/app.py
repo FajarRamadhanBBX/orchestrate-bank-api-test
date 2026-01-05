@@ -1,3 +1,4 @@
+from decimal import Decimal
 import time
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
@@ -75,7 +76,8 @@ def add_funds(data: AddBalanceRequest, db: Session = Depends(get_db)):
     account = db.query(Account).filter_by(account_number=data.account_number).first()
     if not account:
         return {"error": "Account not found"}
-    account.balance += data.amount
+    amount = Decimal(str(data.amount))
+    account.balance += amount
     db.commit()
     return {"account": account.account_number, "new_balance": account.balance}
 
@@ -88,8 +90,9 @@ def transfer(data: TransferRequest, db: Session = Depends(get_db)):
     if from_acc.balance < data.amount:
         return {"error": "Insufficient balance"}
     time.sleep(0.2)
-    from_acc.balance -= data.amount
-    to_acc.balance += data.amount
+    amount = Decimal(str(data.amount))
+    from_acc.balance -= amount
+    to_acc.balance += amount
     tx = Transaction(
         from_account=data.from_account,
         to_account=data.to_account,
