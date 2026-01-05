@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: fajarramadhan/dev-bank-frontend:v2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: frontend-config
+          mountPath: /usr/share/nginx/html/env.js
+          subPath: env.js
+      volumes:
+      - name: frontend-config
+        configMap:
+          name: frontend-config

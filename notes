@@ -1,0 +1,13 @@
+k8s/
+  backend/
+    configmap.yaml
+    secret.yaml
+    deployment.yaml
+    service.yaml
+  frontend/
+    deployment.yaml
+    service.yaml
+  database/
+    pvc.yaml
+    deployment.yaml
+    service.yaml

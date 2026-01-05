@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Banking API Frontend</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h2 { margin-top: 40px; }
+    .card {
+        background: white; padding: 20px; border-radius: 8px;
+        margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    label { display:block; margin-top:8px; }
+    input {
+        padding:8px; width:100%; margin-top:4px;
+        border:1px solid #ccc; border-radius:4px;
+    }
+    button {
+        margin-top:10px; padding:10px 14px;
+        border:none; background:#2d7bf4; color:white;
+        border-radius:4px; cursor:pointer;
+    }
+    button:hover { background:#1b5fd6; }
+    pre {
+        background:#222; color:#0f0;
+        padding:15px; border-radius:6px;
+        overflow:auto;
+    }
+</style>
+</head>
+<body>
+
+<h1>Banking API Test UI</h1>
+
+<div id="output"></div>
+
+<!-- CREATE ACCOUNT -->
+<div class="card">
+    <h2>Create Account</h2>
+    <label>Account Number</label>
+    <input id="create_acc_num">
+
+    <label>Initial Balance</label>
+    <input id="create_init_bal" type="number">
+
+    <button onclick="createAccount()">Create</button>
+</div>
+
+<!-- GET BALANCE -->
+<div class="card">
+    <h2>Get Balance</h2>
+    <label>Account Number</label>
+    <input id="bal_acc">
+
+    <button onclick="getBalance()">Check Balance</button>
+</div>
+
+<!-- ADD BALANCE -->
+<div class="card">
+    <h2>Add Balance</h2>
+    <label>Account Number</label>
+    <input id="add_acc">
+
+    <label>Amount</label>
+    <input id="add_amt" type="number">
+
+    <button onclick="addBalance()">Add</button>
+</div>
+
+<!-- TRANSFER -->
+<div class="card">
+    <h2>Transfer</h2>
+    <label>From Account</label>
+    <input id="from_acc">
+
+    <label>To Account</label>
+    <input id="to_acc">
+
+    <label>Amount</label>
+    <input id="tx_amt" type="number">
+
+    <button onclick="transfer()">Transfer</button>
+</div>
+
+<!-- LIST DATA -->
+<div class="card">
+    <h2>Get All Accounts</h2>
+    <button onclick="getAccounts()">Load Accounts</button>
+</div>
+
+<div class="card">
+    <h2>Get All Transactions</h2>
+    <button onclick="getTransactions()">Load Transactions</button>
+</div>
+
+<div class="card">
+    <h2>Raw API Output</h2>
+    <pre id="respBox">Waiting...</pre>
+</div>
+
+<!-- <script src="/env.js"></script> -->
+<script>
+const BASE = "/api";
+function setResp(data){
+    document.getElementById("respBox").textContent =
+        JSON.stringify(data, null, 2);
+}
+
+async function createAccount(){
+    const payload = {
+        account_number: document.getElementById("create_acc_num").value,
+        initial_balance: parseFloat(document.getElementById("create_init_bal").value)
+    };
+
+    const res = await fetch(`${BASE}/account`, {
+        method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    setResp(await res.json());
+}
+
+async function getBalance(){
+    const payload = {
+        account_number: document.getElementById("bal_acc").value
+    };
+    const res = await fetch(`${BASE}/balance`, {
+        method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+    });
+    setResp(await res.json());
+}
+
+async function addBalance(){
+    const payload = {
+        account_number: document.getElementById("add_acc").value,
+        amount: parseFloat(document.getElementById("add_amt").value)
+    };
+    const res = await fetch(`${BASE}/add_balance`, {
+        method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+    });
+    setResp(await res.json());
+}
+
+async function transfer(){
+    const payload = {
+        from_account: document.getElementById("from_acc").value,
+        to_account: document.getElementById("to_acc").value,
+        amount: parseFloat(document.getElementById("tx_amt").value)
+    };
+    const res = await fetch(`${BASE}/transfer`, {
+        method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+    });
+    setResp(await res.json());
+}
+
+async function getAccounts(){
+    const res = await fetch(`${BASE}/get_all_accounts`);
+    setResp(await res.json());
+}
+
+async function getTransactions(){
+    const res = await fetch(`${BASE}/get_all_transactions`);
+    setResp(await res.json());
+}
+</script>
+
+</body>
+</html>
