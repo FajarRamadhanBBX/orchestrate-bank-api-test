@@ -17,10 +17,6 @@ spec:
         image: fajarramadhan/dev-bank-frontend:v3
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: frontend-config
-          mountPath: /usr/share/nginx/html/env.js
-          subPath: env.js
       volumes:
       - name: frontend-config
         configMap:
