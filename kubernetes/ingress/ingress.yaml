@@ -10,7 +10,7 @@ spec:
     http:
       paths:
       - path: /(.*)
-        pathType: (/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: frontend-service
@@ -18,7 +18,7 @@ spec:
               number: 80
 
       - path: /api(/|$)(.*)
-        pathType: (/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: backend-service

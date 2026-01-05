@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: fajarramadhan/dev-bank-frontend:v2
+        image: fajarramadhan/dev-bank-frontend:v3
         ports:
         - containerPort: 80
         volumeMounts:
