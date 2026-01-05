@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import OperationalError
 from sqlalchemy import text
 from pydantic import BaseModel
-from models import Account
+from models import Account, Transaction
 from database import Base, SessionLocal, engine
 
 Base.metadata.create_all(bind=engine)
