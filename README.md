@@ -58,7 +58,7 @@ A simple banking simulation application (for API test) built to learn **Kubernet
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/your-username/bank-simulation-k8s.git
+git clone https://github.com/FajarRamadhanBBX/orchestrate-bank-api-test.git
 cd bank-simulation-k8s
 ```
 
