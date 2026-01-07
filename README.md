@@ -59,7 +59,7 @@ A simple banking simulation application (for API test) built to learn **Kubernet
 
 ```bash
 git clone https://github.com/FajarRamadhanBBX/orchestrate-bank-api-test.git
-cd bank-simulation-k8s
+cd orchestrate-bank-api-test
 ```
 
 ### 3. Deploy
