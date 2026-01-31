@@ -1,5 +1,7 @@
 # 🏦 Bank Simulation API test (Kubernetes + Ingress + Traefik)
 A simple banking simulation application (for API test) built to learn **Kubernetes orchestration**, **Ingress**, **service networking**, and **DevOps fundamentals**. This project demonstrates how a multi-tier application (Frontend, Backend, Database) is deployed and connected inside a Kubernetes cluster.
+<img width="3232" height="3000" alt="image" src="https://github.com/user-attachments/assets/88780c07-a306-4e73-9649-1c8600377758" />
+
 
 ---
 
